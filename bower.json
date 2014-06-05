@@ -1,0 +1,13 @@
+{
+    "name": "bemer-components",
+    "description": "Base components to web-site on BEM methodology.",
+    "version": "0.0.0",
+    "license": "MIT",
+    "ignore": [
+        "**/.*"
+    ],
+    "keywords": [
+        "bem",
+        "components"
+    ]
+}
