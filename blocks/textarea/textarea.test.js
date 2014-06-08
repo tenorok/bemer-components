@@ -5,14 +5,15 @@ describe('Блок textarea.', function() {
         it('Блок', function() {
             assert.equal(
                 bemer({ block: 'textarea' }),
-                bemerTest({ block: 'textarea', tag: 'textarea' })
+                '<textarea class="textarea i-bem" data-bem="{&quot;textarea&quot;:{}}"></textarea>'
             );
         });
 
         it('Placeholder', function() {
             assert.equal(
                 bemer({ block: 'textarea', placeholder: 'Message' }),
-                bemerTest({ block: 'textarea', tag: 'textarea', attrs: { placeholder: 'Message' }})
+                '<textarea class="textarea i-bem" placeholder="Message" ' +
+                    'data-bem="{&quot;textarea&quot;:{}}"></textarea>'
             );
         });
 

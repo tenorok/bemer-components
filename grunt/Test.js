@@ -9,10 +9,7 @@ Test.prototype = {
 
     build: function() {
         fs.writeFileSync(
-            path.join('test', this.block + '.js'),
-            'var bemer = require("bemer");\n' +
-            'var bemerTest = require("bemerTest");\n' +
-            'var assert = require("chai").assert;\n' +
+            path.join('test', 'test.js'),
             this._readBlockFiles()
         );
     },

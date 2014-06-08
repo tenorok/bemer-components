@@ -11,12 +11,15 @@ module.exports = function(grunt) {
         mochaTest: {
             main: { src: ['test/*'] },
             options: { reporter: 'spec' }
+        },
+        mocha_phantomjs: {
+            all: ['test/index.html']
         }
     });
 
     grunt.registerTask('test', function() {
         test.build();
-        grunt.task.run('mochaTest');
+        grunt.task.run('mocha_phantomjs');
     });
 
 };
