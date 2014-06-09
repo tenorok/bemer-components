@@ -1,4 +1,4 @@
-describe('Блок textarea.', function() {
+describe('textarea.', function() {
 
     describe('HTML.', function() {
 

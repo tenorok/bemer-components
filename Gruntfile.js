@@ -31,12 +31,7 @@ module.exports = function(grunt) {
                 browsers: ['PhantomJS'],
                 logLevel: 'ERROR',
                 frameworks: ['mocha', 'chai'],
-                reporters: ['mocha'],
-                client: {
-                    mocha: {
-                        ui: 'bdd'
-                    }
-                }
+                reporters: ['mocha']
             }
         }
     });

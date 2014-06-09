@@ -8,9 +8,17 @@ function Test(block) {
 Test.prototype = {
 
     build: function() {
+        var deps = '';
+
+        if(this.block === 'i-control') {
+            deps = this._getIBlock();
+        } else if(this.block !== 'i-block') {
+            deps = this._getIBlock() + this._getIControl();
+        }
+
         fs.writeFileSync(
             path.join('test', 'test.js'),
-            this._readBlockFiles()
+            deps + this._readBlockFiles()
         );
     },
 
@@ -24,6 +32,14 @@ Test.prototype = {
                 return content;
             }
         }.bind(this), '');
+    },
+
+    _getIBlock: function() {
+        return fs.readFileSync('blocks/i-block/i-block.js', { encoding: 'utf8' });
+    },
+
+    _getIControl: function() {
+        return fs.readFileSync('blocks/i-block/i-block.js', { encoding: 'utf8' });
     }
 
 };
