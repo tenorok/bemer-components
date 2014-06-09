@@ -20,6 +20,7 @@ module.exports = function(grunt) {
                 options: {
                     files: [
                         'bower_components/es5-shim/es5-shim.js',
+                        'bower_components/jquery/dist/jquery.js',
                         'bower_components/bemer/bemer.js',
                         'test/test.js'
                     ]
