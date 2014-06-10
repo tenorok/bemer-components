@@ -43,13 +43,24 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.
      * При вызове с аргументом устанавливается указанное значение атрибуту `name` контрола
      * или массив значения, если контролов несколько.
      *
-     * @param {string} [name] Имя контрола
-     * @returns {BEM.DOM|string[]|string}
+     * При вызове с аргументом в виде массива атрибут `name` устанавливается
+     * последовательно для каждого контрола.
+     *
+     * @param {string|string[]} [name] Имя или несколько имён контролов
+     * @returns {BEM.DOM|string|string[]}
      */
     name: function(name) {
         var control = this.getControl();
 
         if(name) {
+
+            if(Array.isArray(name)) {
+                this.__self.each(control, function() {
+                    this.attr('name', name.shift());
+                });
+                return this;
+            }
+
             this.__self.each(control, function() {
                 this.attr('name', name);
             }, function() {

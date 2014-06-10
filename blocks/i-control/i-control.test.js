@@ -57,7 +57,29 @@ describe('i-control.', function() {
             assert.deepEqual(name, ['login', 'password']);
         });
 
-        it('Установить имена нескольких контролов', function() {
+        it('Установить несколько имён нескольких контролов', function() {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: [
+                    { elem: 'control' },
+                    { elem: 'control' }
+                ]
+            }).name(['login', 'password']);
+
+            assert.equal($(block.elem('control')[0]).attr('name'), 'login');
+            assert.equal($(block.elem('control')[1]).attr('name'), 'password');
+        });
+
+        it('Установить несколько имён одному контролу', function() {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: { elem: 'control' }
+            }).name(['login', 'password']);
+
+            assert.equal(block.elem('control').attr('name'), 'login');
+        });
+
+        it('Установить одно имя нескольким контролам', function() {
             var block = BEM.blocks['i-control'].create({
                 block: 'i-control',
                 content: [
