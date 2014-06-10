@@ -5,6 +5,18 @@
  */
 BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.prototype */ {
 
+    /**
+     * Событие изменения значения контрола.
+     *
+     * @event i-control#change
+     */
+
+    /**
+     * Булев модификатор disabled.
+     *
+     * Устанавливает одноимённый атрибут всем контролам блока.
+     */
+
     onSetMod: {
 
         disabled: {
@@ -16,12 +28,6 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.
         }
 
     },
-
-    /**
-     * Изменение значения контрола.
-     *
-     * @event i-control#change
-     */
 
     /**
      * Получить настоящий контрол
@@ -53,7 +59,6 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.
         var control = this.getControl();
 
         if(name) {
-
             if(Array.isArray(name)) {
                 this.__self.each(control, function() {
                     this.attr('name', name.shift());
