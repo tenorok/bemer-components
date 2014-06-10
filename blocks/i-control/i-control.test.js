@@ -193,4 +193,35 @@ describe('i-control.', function() {
 
     });
 
+    describe('Модификатор disabled.', function() {
+
+        it('Установить модификатор disabled', function() {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: { elem: 'control' }
+            });
+
+            assert.isUndefined(block.getControl().prop('disabled'));
+            block.setMod('disabled', true);
+            assert.isTrue(block.getControl().prop('disabled'));
+            block.setMod('disabled', false);
+            assert.isFalse(block.getControl().prop('disabled'));
+        });
+
+        it('Установить модификатор disabled для нескольких контролов', function() {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: [
+                    { elem: 'control', attrs: { value: 'login' }},
+                    { elem: 'control', attrs: { value: 'password' }}
+                ]
+            }).setMod('disabled', true);
+
+            block.getControl().each(function() {
+                assert.isTrue($(this).prop('disabled'));
+            });
+        });
+
+    });
+
 });

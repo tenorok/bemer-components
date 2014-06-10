@@ -5,6 +5,18 @@
  */
 BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.prototype */ {
 
+    onSetMod: {
+
+        disabled: {
+            '*': function(name, val) {
+                this.__self.each(this.getControl(), function() {
+                    return this.prop(name, !!val);
+                });
+            }
+        }
+
+    },
+
     /**
      * Изменение значения контрола.
      *
