@@ -110,7 +110,7 @@ describe('i-control.', function() {
         assert.equal($(block.elem('control')[1]).attr('value'), 'data');
     });
 
-    it('Проверить возникновение события change', function(done) {
+    it('Возникновение события change', function(done) {
         var block = BEM.blocks['i-control'].create({
             block: 'i-control',
             content: { elem: 'control' }
@@ -124,7 +124,7 @@ describe('i-control.', function() {
         block.val('data');
     });
 
-    it('Проверить возникновение события change с дополнительными данными', function(done) {
+    it('Возникновение события change с дополнительными данными', function(done) {
         var block = BEM.blocks['i-control'].create({
             block: 'i-control',
             content: { elem: 'control' }
@@ -136,6 +136,45 @@ describe('i-control.', function() {
         });
 
         block.val('data', { target: 'blank' });
+    });
+
+    it('Возникновение события change при изменении значения одного из нескольких контролов', function(done) {
+        var block = BEM.blocks['i-control'].create({
+            block: 'i-control',
+            content: [
+                { elem: 'control', attrs: { value: 'login' }},
+                { elem: 'control', attrs: { value: 'password' }}
+            ]
+        });
+
+        block.on('change', function() {
+            assert.deepEqual(this.val(), ['login', 'login']);
+            done();
+        });
+
+        block.val('login');
+    });
+
+    it('При повторной установке значения событие change не должно инициироваться', function(done) {
+        var block = BEM.blocks['i-control'].create({
+            block: 'i-control',
+            content: { elem: 'control' }
+        });
+
+        block.on('change', function(e, data) {
+            if(data.i === 0) {
+                assert.equal(this.val(), 'data');
+            } else if(data.i === 1) {
+                assert.fail('Повторное инициирование change');
+            } else if(data.i === 2) {
+                done();
+            }
+        });
+
+        block
+            .val('data', { i: 0 })
+            .val('data', { i: 1 })
+            .val('other', { i: 2 });
     });
 
 });

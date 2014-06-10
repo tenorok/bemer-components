@@ -69,10 +69,15 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.
         var control = this.getControl();
 
         if(value) {
+            var prevVal = this.val();
             this.__self.each(control, function() {
                 this.attr('value', value);
             });
-            this.trigger('change', data || {});
+
+            if(!_.isEqual(prevVal, this.val())) {
+                this.trigger('change', data || {});
+            }
+
             return this;
         }
 
