@@ -6,6 +6,12 @@
 BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.prototype */ {
 
     /**
+     * Изменение значения контрола.
+     *
+     * @event i-control#change
+     */
+
+    /**
      * Получить настоящий контрол
      * или список контролов.
      *
@@ -56,15 +62,17 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.
      * атрибуту `value` для всех переданных контролов.
      *
      * @param {*} [value] Значение контрола
+     * @param {object} [data] Данные для события `change`
      * @returns {BEM.DOM|string[]|string}
      */
-    val: function(value) {
+    val: function(value, data) {
         var control = this.getControl();
 
         if(value) {
             this.__self.each(control, function() {
                 this.attr('value', value);
             });
+            this.trigger('change', data || {});
             return this;
         }
 

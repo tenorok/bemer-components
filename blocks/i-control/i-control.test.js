@@ -110,4 +110,32 @@ describe('i-control.', function() {
         assert.equal($(block.elem('control')[1]).attr('value'), 'data');
     });
 
+    it('Проверить возникновение события change', function(done) {
+        var block = BEM.blocks['i-control'].create({
+            block: 'i-control',
+            content: { elem: 'control' }
+        });
+
+        block.on('change', function() {
+            assert.equal(this.val(), 'data');
+            done();
+        });
+
+        block.val('data');
+    });
+
+    it('Проверить возникновение события change с дополнительными данными', function(done) {
+        var block = BEM.blocks['i-control'].create({
+            block: 'i-control',
+            content: { elem: 'control' }
+        });
+
+        block.on('change', function(e, data) {
+            assert.equal(data.target, 'blank');
+            done();
+        });
+
+        block.val('data', { target: 'blank' });
+    });
+
 });
