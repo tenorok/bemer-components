@@ -128,6 +128,19 @@ describe('i-control.', function() {
             assert.deepEqual(value, ['login', 'password']);
         });
 
+        it('Установить несколько значений нескольких контролов', function() {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: [
+                    { elem: 'control' },
+                    { elem: 'control' }
+                ]
+            }).val(['login', 'password']);
+
+            assert.equal($(block.elem('control')[0]).attr('value'), 'login');
+            assert.equal($(block.elem('control')[1]).attr('value'), 'password');
+        });
+
         it('Установить значение нескольких контролов', function() {
             var block = BEM.blocks['i-control'].create({
                 block: 'i-control',

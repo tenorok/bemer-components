@@ -84,9 +84,12 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.
      * При вызове с аргументом устанавливается указанное значение
      * атрибуту `value` для всех переданных контролов.
      *
-     * @param {*} [value] Значение контрола
+     * При вызове с аргументом в виде массива атрибут `value` устанавливается
+     * последовательно для каждого контрола.
+     *
+     * @param {*|*[]} [value] Значение или несколько значений контролов
      * @param {object} [data] Данные для события `change`
-     * @returns {BEM.DOM|string[]|string}
+     * @returns {BEM.DOM|string|string[]}
      */
     val: function(value, data) {
         var control = this.getControl();
@@ -94,7 +97,7 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.
         if(value) {
             var prevVal = this.val();
             this.__self.each(control, function() {
-                this.attr('value', value);
+                this.attr('value', Array.isArray(value) ? value.shift() : value);
             });
 
             if(!_.isEqual(prevVal, this.val())) {
