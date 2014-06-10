@@ -61,7 +61,7 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.
         if(name) {
             if(Array.isArray(name)) {
                 this.__self.each(control, function() {
-                    this.attr('name', name.shift());
+                    this.attr('name', name.shift() || '');
                 });
                 return this;
             }
@@ -102,7 +102,7 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.
         if(value) {
             var prevVal = this.val();
             this.__self.each(control, function() {
-                this.attr('value', Array.isArray(value) ? value.shift() : value);
+                this.attr('value', Array.isArray(value) ? value.shift() || '' : value);
             });
 
             if(!_.isEqual(prevVal, this.val())) {

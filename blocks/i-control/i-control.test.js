@@ -62,12 +62,14 @@ describe('i-control.', function() {
                 block: 'i-control',
                 content: [
                     { elem: 'control' },
+                    { elem: 'control' },
                     { elem: 'control' }
                 ]
             }).name(['login', 'password']);
 
             assert.equal($(block.elem('control')[0]).attr('name'), 'login');
             assert.equal($(block.elem('control')[1]).attr('name'), 'password');
+            assert.equal($(block.elem('control')[2]).attr('name'), '');
         });
 
         it('Установить несколько имён одному контролу', function() {
@@ -133,12 +135,14 @@ describe('i-control.', function() {
                 block: 'i-control',
                 content: [
                     { elem: 'control' },
+                    { elem: 'control' },
                     { elem: 'control' }
                 ]
             }).val(['login', 'password']);
 
             assert.equal($(block.elem('control')[0]).attr('value'), 'login');
             assert.equal($(block.elem('control')[1]).attr('value'), 'password');
+            assert.equal($(block.elem('control')[2]).attr('value'), '');
         });
 
         it('Установить значение нескольких контролов', function() {
