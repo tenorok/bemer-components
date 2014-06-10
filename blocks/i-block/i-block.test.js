@@ -20,7 +20,7 @@ describe('i-block.', function() {
             content: { elem: 'input', attrs: { type: 'text' }}
         });
 
-        assert.equal(BEM.blocks['i-block'].get(block.elem('input'), function(input) {
+        assert.equal(BEM.blocks['i-block'].each(block.elem('input'), function(input) {
             return this.attr('type');
         }), 'text');
     });
@@ -34,7 +34,7 @@ describe('i-block.', function() {
             ]
         });
 
-        assert.deepEqual(BEM.blocks['i-block'].get(block.elem('input'), undefined, function(input, index) {
+        assert.deepEqual(BEM.blocks['i-block'].each(block.elem('input'), undefined, function(input, index) {
             return this.attr('type');
         }), ['text', 'submit']);
     });
@@ -48,7 +48,7 @@ describe('i-block.', function() {
             ]
         });
 
-        assert.deepEqual(BEM.blocks['i-block'].get(block.elem('input'), function(input, index) {
+        assert.deepEqual(BEM.blocks['i-block'].each(block.elem('input'), function(input, index) {
             return this.attr('type');
         }), ['text', 'submit']);
     });
