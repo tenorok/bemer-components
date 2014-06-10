@@ -14,4 +14,43 @@ describe('i-block.', function() {
         assert.isFalse(block.hasClass('i-bem'));
     });
 
+    it('Получить атрибут type одного тега', function() {
+        var block = BEM.blocks['i-block'].create({
+            block: 'i-block',
+            content: { elem: 'input', attrs: { type: 'text' }}
+        });
+
+        assert.equal(BEM.blocks['i-block'].get(block.elem('input'), function(input) {
+            return this.attr('type');
+        }), 'text');
+    });
+
+    it('Получить атрибуты type нескольких тегов', function() {
+        var block = BEM.blocks['i-block'].create({
+            block: 'i-block',
+            content: [
+                { elem: 'input', attrs: { type: 'text' }},
+                { elem: 'input', attrs: { type: 'submit' }}
+            ]
+        });
+
+        assert.deepEqual(BEM.blocks['i-block'].get(block.elem('input'), undefined, function(input, index) {
+            return this.attr('type');
+        }), ['text', 'submit']);
+    });
+
+    it('Получить атрибуты type нескольких тегов через один колбек', function() {
+        var block = BEM.blocks['i-block'].create({
+            block: 'i-block',
+            content: [
+                { elem: 'input', attrs: { type: 'text' }},
+                { elem: 'input', attrs: { type: 'submit' }}
+            ]
+        });
+
+        assert.deepEqual(BEM.blocks['i-block'].get(block.elem('input'), function(input, index) {
+            return this.attr('type');
+        }), ['text', 'submit']);
+    });
+
 });
