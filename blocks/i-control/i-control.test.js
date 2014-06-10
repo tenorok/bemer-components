@@ -1,180 +1,196 @@
 describe('i-control.', function() {
 
-    it('Получить контрол', function() {
-        var control = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: { elem: 'control' }
-        }).getControl();
+    describe('Метод getControl.', function() {
 
-        assert.isTrue(control instanceof jQuery);
-        assert.equal(control.length, 1);
-    });
+        it('Получить контрол', function() {
+            var control = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: { elem: 'control' }
+            }).getControl();
 
-    it('Получить примиксованный контрол', function() {
-        var control = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            mix: [{ block: 'i-control', elem: 'control' }]
-        }).getControl();
-
-        assert.isTrue(control instanceof jQuery);
-        assert.equal(control.length, 1);
-    });
-
-    it('Получить имя контрола', function() {
-        var name = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: { elem: 'control', attrs: { name: 'login' }}
-        }).name();
-
-        assert.equal(name, 'login');
-    });
-
-    it('Установить имя контрола', function() {
-        var block = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: { elem: 'control' }
-        }).name('login');
-
-        assert.isTrue(block instanceof BEM.DOM);
-        assert.equal(block.elem('control').attr('name'), 'login');
-    });
-
-    it('Получить имена нескольких контролов', function() {
-        var name = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: [
-                { elem: 'control', attrs: { name: 'login' }},
-                { elem: 'control', attrs: { name: 'password' }}
-            ]
-        }).name();
-
-        assert.deepEqual(name, ['login', 'password']);
-    });
-
-    it('Установить имена нескольких контролов', function() {
-        var block = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: [
-                { elem: 'control' },
-                { elem: 'control' }
-            ]
-        }).name('data');
-
-        assert.isTrue(block instanceof BEM.DOM);
-        assert.equal($(block.elem('control')[0]).attr('name'), 'data[]');
-        assert.equal($(block.elem('control')[1]).attr('name'), 'data[]');
-    });
-
-    it('Получить значение контрола', function() {
-        var value = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: { elem: 'control', attrs: { value: 'login' }}
-        }).val();
-
-        assert.equal(value, 'login');
-    });
-
-    it('Установить значение контрола', function() {
-        var block = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: { elem: 'control' }
-        }).val('login');
-
-        assert.isTrue(block instanceof BEM.DOM);
-        assert.equal(block.elem('control').attr('value'), 'login');
-    });
-
-    it('Получить значение нескольких контролов', function() {
-        var value = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: [
-                { elem: 'control', attrs: { value: 'login' }},
-                { elem: 'control', attrs: { value: 'password' }}
-            ]
-        }).val();
-
-        assert.deepEqual(value, ['login', 'password']);
-    });
-
-    it('Установить значение нескольких контролов', function() {
-        var block = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: [
-                { elem: 'control' },
-                { elem: 'control' }
-            ]
-        }).val('data');
-
-        assert.isTrue(block instanceof BEM.DOM);
-        assert.equal($(block.elem('control')[0]).attr('value'), 'data');
-        assert.equal($(block.elem('control')[1]).attr('value'), 'data');
-    });
-
-    it('Возникновение события change', function(done) {
-        var block = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: { elem: 'control' }
+            assert.isTrue(control instanceof jQuery);
+            assert.equal(control.length, 1);
         });
 
-        block.on('change', function() {
-            assert.equal(this.val(), 'data');
-            done();
+        it('Получить примиксованный контрол', function() {
+            var control = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                mix: [{ block: 'i-control', elem: 'control' }]
+            }).getControl();
+
+            assert.isTrue(control instanceof jQuery);
+            assert.equal(control.length, 1);
         });
 
-        block.val('data');
     });
 
-    it('Возникновение события change с дополнительными данными', function(done) {
-        var block = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: { elem: 'control' }
+    describe('Метод name.', function() {
+
+        it('Получить имя контрола', function() {
+            var name = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: { elem: 'control', attrs: { name: 'login' }}
+            }).name();
+
+            assert.equal(name, 'login');
         });
 
-        block.on('change', function(e, data) {
-            assert.equal(data.target, 'blank');
-            done();
+        it('Установить имя контрола', function() {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: { elem: 'control' }
+            }).name('login');
+
+            assert.isTrue(block instanceof BEM.DOM);
+            assert.equal(block.elem('control').attr('name'), 'login');
         });
 
-        block.val('data', { target: 'blank' });
+        it('Получить имена нескольких контролов', function() {
+            var name = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: [
+                    { elem: 'control', attrs: { name: 'login' }},
+                    { elem: 'control', attrs: { name: 'password' }}
+                ]
+            }).name();
+
+            assert.deepEqual(name, ['login', 'password']);
+        });
+
+        it('Установить имена нескольких контролов', function() {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: [
+                    { elem: 'control' },
+                    { elem: 'control' }
+                ]
+            }).name('data');
+
+            assert.isTrue(block instanceof BEM.DOM);
+            assert.equal($(block.elem('control')[0]).attr('name'), 'data[]');
+            assert.equal($(block.elem('control')[1]).attr('name'), 'data[]');
+        });
+
     });
 
-    it('Возникновение события change при изменении значения одного из нескольких контролов', function(done) {
-        var block = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: [
-                { elem: 'control', attrs: { value: 'login' }},
-                { elem: 'control', attrs: { value: 'password' }}
-            ]
+    describe('Метод val.', function() {
+
+        it('Получить значение контрола', function() {
+            var value = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: { elem: 'control', attrs: { value: 'login' }}
+            }).val();
+
+            assert.equal(value, 'login');
         });
 
-        block.on('change', function() {
-            assert.deepEqual(this.val(), ['login', 'login']);
-            done();
+        it('Установить значение контрола', function() {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: { elem: 'control' }
+            }).val('login');
+
+            assert.isTrue(block instanceof BEM.DOM);
+            assert.equal(block.elem('control').attr('value'), 'login');
         });
 
-        block.val('login');
+        it('Получить значение нескольких контролов', function() {
+            var value = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: [
+                    { elem: 'control', attrs: { value: 'login' }},
+                    { elem: 'control', attrs: { value: 'password' }}
+                ]
+            }).val();
+
+            assert.deepEqual(value, ['login', 'password']);
+        });
+
+        it('Установить значение нескольких контролов', function() {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: [
+                    { elem: 'control' },
+                    { elem: 'control' }
+                ]
+            }).val('data');
+
+            assert.isTrue(block instanceof BEM.DOM);
+            assert.equal($(block.elem('control')[0]).attr('value'), 'data');
+            assert.equal($(block.elem('control')[1]).attr('value'), 'data');
+        });
+
     });
 
-    it('При повторной установке значения событие change не должно инициироваться', function(done) {
-        var block = BEM.blocks['i-control'].create({
-            block: 'i-control',
-            content: { elem: 'control' }
-        });
+    describe('Событие change.', function() {
 
-        block.on('change', function(e, data) {
-            if(data.i === 0) {
+        it('Возникновение события change', function(done) {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: { elem: 'control' }
+            });
+
+            block.on('change', function() {
                 assert.equal(this.val(), 'data');
-            } else if(data.i === 1) {
-                assert.fail('Повторное инициирование change');
-            } else if(data.i === 2) {
                 done();
-            }
+            });
+
+            block.val('data');
         });
 
-        block
-            .val('data', { i: 0 })
-            .val('data', { i: 1 })
-            .val('other', { i: 2 });
+        it('Возникновение события change с дополнительными данными', function(done) {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: { elem: 'control' }
+            });
+
+            block.on('change', function(e, data) {
+                assert.equal(data.target, 'blank');
+                done();
+            });
+
+            block.val('data', { target: 'blank' });
+        });
+
+        it('Возникновение события change при изменении значения одного из нескольких контролов', function(done) {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: [
+                    { elem: 'control', attrs: { value: 'login' }},
+                    { elem: 'control', attrs: { value: 'password' }}
+                ]
+            });
+
+            block.on('change', function() {
+                assert.deepEqual(this.val(), ['login', 'login']);
+                done();
+            });
+
+            block.val('login');
+        });
+
+        it('При повторной установке значения событие change не должно инициироваться', function(done) {
+            var block = BEM.blocks['i-control'].create({
+                block: 'i-control',
+                content: { elem: 'control' }
+            });
+
+            block.on('change', function(e, data) {
+                if(data.i === 0) {
+                    assert.equal(this.val(), 'data');
+                } else if(data.i === 1) {
+                    assert.fail('Повторное инициирование change');
+                } else if(data.i === 2) {
+                    done();
+                }
+            });
+
+            block
+                .val('data', { i: 0 })
+                .val('data', { i: 1 })
+                .val('other', { i: 2 });
+        });
+
     });
 
 });
