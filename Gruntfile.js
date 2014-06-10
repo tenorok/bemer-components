@@ -21,6 +21,7 @@ module.exports = function(grunt) {
                     files: [
                         'bower_components/es5-shim/es5-shim.js',
                         'bower_components/jquery/dist/jquery.js',
+                        'bower_components/lodash/dist/lodash.js',
                         'bower_components/i-bem/i-bem.js',
                         'bower_components/bemer/bemer.js',
                         'test/test.js'
