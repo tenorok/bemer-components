@@ -32,25 +32,45 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.
         var control = this.getControl();
 
         if(name) {
-            if(control.length > 1) {
-                this.getControl().each(function(i, ctrl) {
-                    $(ctrl).attr('name', name + '[]');
-                });
-            } else {
-                control.attr('name', name);
-            }
+            this.__self.each(control, function() {
+                this.attr('name', name);
+            }, function() {
+                this.attr('name', name + '[]');
+            });
             return this;
         }
 
-        if(control.length > 1) {
-            var names = [];
-            this.getControl().each(function(i, ctrl) {
-                names.push($(ctrl).attr('name'));
+        return this.__self.each(control, function() {
+            return this.attr('name');
+        });
+    },
+
+    /**
+     * Получить/установить атрибут значения настоящего контрола
+     * или списка контролов.
+     *
+     * При вызове без аргумента возвращается значение контрола
+     * или список значений, если контролов несколько.
+     *
+     * При вызове с аргументом устанавливается указанное значение
+     * атрибуту `value` для всех переданных контролов.
+     *
+     * @param {*} [value] Значение контрола
+     * @returns {BEM.DOM|string[]|string}
+     */
+    val: function(value) {
+        var control = this.getControl();
+
+        if(value) {
+            this.__self.each(control, function() {
+                this.attr('value', value);
             });
-            return names;
-        } else {
-            return control.attr('name');
+            return this;
         }
+
+        return this.__self.each(control, function() {
+            return this.attr('value');
+        });
     }
 
 }, /** @lends i-control */ {});

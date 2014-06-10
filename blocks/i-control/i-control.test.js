@@ -65,4 +65,49 @@ describe('i-control.', function() {
         assert.equal($(block.elem('control')[1]).attr('name'), 'data[]');
     });
 
+    it('Получить значение контрола', function() {
+        var value = BEM.blocks['i-control'].create({
+            block: 'i-control',
+            content: { elem: 'control', attrs: { value: 'login' }}
+        }).val();
+
+        assert.equal(value, 'login');
+    });
+
+    it('Установить значение контрола', function() {
+        var block = BEM.blocks['i-control'].create({
+            block: 'i-control',
+            content: { elem: 'control' }
+        }).val('login');
+
+        assert.isTrue(block instanceof BEM.DOM);
+        assert.equal(block.elem('control').attr('value'), 'login');
+    });
+
+    it('Получить значение нескольких контролов', function() {
+        var value = BEM.blocks['i-control'].create({
+            block: 'i-control',
+            content: [
+                { elem: 'control', attrs: { value: 'login' }},
+                { elem: 'control', attrs: { value: 'password' }}
+            ]
+        }).val();
+
+        assert.deepEqual(value, ['login', 'password']);
+    });
+
+    it('Установить значение нескольких контролов', function() {
+        var block = BEM.blocks['i-control'].create({
+            block: 'i-control',
+            content: [
+                { elem: 'control' },
+                { elem: 'control' }
+            ]
+        }).val('data');
+
+        assert.isTrue(block instanceof BEM.DOM);
+        assert.equal($(block.elem('control')[0]).attr('value'), 'data');
+        assert.equal($(block.elem('control')[1]).attr('value'), 'data');
+    });
+
 });
