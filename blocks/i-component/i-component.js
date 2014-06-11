@@ -18,6 +18,22 @@ BEM.DOM.decl({ block: 'i-component', baseBlock: 'i-block' }, /** @lends i-compon
      * Устанавливается для заблокированного компонента.
      */
 
+    onSetMod: {
+
+        focus: {
+            '*': function() {
+                return !this.hasMod('disabled');
+            }
+        },
+
+        disabled: {
+            true: function() {
+                this.delMod('focus');
+            }
+        }
+
+    }
+
 }, /** @lends i-component */ {
 
     live: function() {
