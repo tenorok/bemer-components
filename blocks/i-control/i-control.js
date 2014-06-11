@@ -1,9 +1,9 @@
 /**
  * @class i-control
  * @abstract
- * @extends i-block
+ * @extends i-component
  */
-BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.prototype */ {
+BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-component' }, /** @lends i-control.prototype */ {
 
     /**
      * Событие изменения значения контрола.
@@ -12,7 +12,7 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-block' }, /** @lends i-control.
      */
 
     /**
-     * Булев модификатор disabled.
+     * Булев модификатор `disabled`.
      *
      * Устанавливает одноимённый атрибут всем контролам блока.
      */

@@ -11,9 +11,11 @@ Test.prototype = {
         var deps = '';
 
         if(this.block === 'i-control') {
+            deps = this._getIBlock() + this._getIComponent();
+        } else if(this.block === 'i-component') {
             deps = this._getIBlock();
         } else if(this.block !== 'i-block') {
-            deps = this._getIBlock() + this._getIControl();
+            deps = this._getIBlock() + this._getIComponent() + this._getIControl();
         }
 
         fs.writeFileSync(
@@ -38,8 +40,12 @@ Test.prototype = {
         return fs.readFileSync('blocks/i-block/i-block.js', { encoding: 'utf8' });
     },
 
+    _getIComponent: function() {
+        return fs.readFileSync('blocks/i-component/i-component.js', { encoding: 'utf8' });
+    },
+
     _getIControl: function() {
-        return fs.readFileSync('blocks/i-block/i-block.js', { encoding: 'utf8' });
+        return fs.readFileSync('blocks/i-control/i-control.js', { encoding: 'utf8' });
     }
 
 };

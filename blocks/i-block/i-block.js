@@ -16,8 +16,11 @@ BEM.DOM.decl('i-block', /** @lends i-block.prototype */ {}, /** @lends i-block *
     /**
      * Получить экземпляр блока.
      *
+     * При необходимости инициализации возвращает экземпляр блока,
+     * если же инициализация не требуется возвращается jQuery.
+     *
      * @param {object} [bemjson] BEMJSON
-     * @returns {BEM.DOM}
+     * @returns {BEM.DOM|jQuery}
      */
     create: function(bemjson) {
         var bemjson = bemjson || this.getBEMJSON.apply(this, arguments),
