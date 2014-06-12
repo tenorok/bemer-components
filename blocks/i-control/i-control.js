@@ -117,4 +117,13 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-component' }, /** @lends i-cont
         });
     }
 
-}, /** @lends i-control */ {});
+}, /** @lends i-control */ {
+
+    live: function() {
+        this
+            .liveBindTo('control', 'change', function(e, data) {
+                this.trigger(e, data);
+            });
+    }
+
+});

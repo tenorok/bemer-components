@@ -99,21 +99,6 @@ describe('i-control.', function() {
 
     describe('Метод val.', function() {
 
-        function getControl(values) {
-            return BEM.blocks['i-control'].create({
-                block: 'i-control',
-                content: values.reduce(function(inputs, value) {
-                    inputs.push({
-                        elem: 'control',
-                        tag: 'input',
-                        type: 'text',
-                        attrs: { value: value }
-                    });
-                    return inputs;
-                }, [])
-            });
-        }
-
         it('Получить значение контрола', function() {
             var value = getControl(['login']).val();
 
@@ -220,6 +205,17 @@ describe('i-control.', function() {
                 .val('other', { i: 2 });
         });
 
+        it('Использование метода jquery.val', function(done) {
+            var block = getControl(['']);
+
+            block.on('change', function() {
+                assert.equal(this.val(), 'data');
+                done();
+            });
+
+            block.elem('control').val('data').trigger('change');
+        });
+
     });
 
     describe('Модификатор disabled.', function() {
@@ -252,5 +248,22 @@ describe('i-control.', function() {
         });
 
     });
+
+    function getControl(values) {
+        var control = BEM.blocks['i-control'].create({
+            block: 'i-control',
+            content: values.reduce(function(inputs, value) {
+                inputs.push({
+                    elem: 'control',
+                    tag: 'input',
+                    type: 'text',
+                    attrs: { value: value }
+                });
+                return inputs;
+            }, [])
+        });
+        control.domElem.appendTo('body');
+        return control;
+    }
 
 });
