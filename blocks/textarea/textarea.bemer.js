@@ -1,11 +1,11 @@
 bemer.match('textarea', {
 
-    tag: 'textarea',
+    tag: 'div',
 
-    attrs: function() {
-        if(this.bemjson.placeholder) {
-            return { placeholder: this.bemjson.placeholder };
-        }
+    content: function() {
+        return [
+            { elem: 'control', placeholder: this.bemjson.placeholder }
+        ];
     }
 
 });
