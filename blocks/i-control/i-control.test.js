@@ -99,64 +99,54 @@ describe('i-control.', function() {
 
     describe('Метод val.', function() {
 
-        it('Получить значение контрола', function() {
-            var value = BEM.blocks['i-control'].create({
+        function getControl(values) {
+            return BEM.blocks['i-control'].create({
                 block: 'i-control',
-                content: { elem: 'control', attrs: { value: 'login' }}
-            }).val();
+                content: values.reduce(function(inputs, value) {
+                    inputs.push({
+                        elem: 'control',
+                        tag: 'input',
+                        type: 'text',
+                        attrs: { value: value }
+                    });
+                    return inputs;
+                }, [])
+            });
+        }
+
+        it('Получить значение контрола', function() {
+            var value = getControl(['login']).val();
 
             assert.equal(value, 'login');
         });
 
         it('Установить значение контрола', function() {
-            var block = BEM.blocks['i-control'].create({
-                block: 'i-control',
-                content: { elem: 'control' }
-            }).val('login');
+            var block = getControl(['']).val('login');
 
             assert.isTrue(block instanceof BEM.DOM);
-            assert.equal(block.elem('control').attr('value'), 'login');
+            assert.equal(block.elem('control').val(), 'login');
         });
 
         it('Получить значение нескольких контролов', function() {
-            var value = BEM.blocks['i-control'].create({
-                block: 'i-control',
-                content: [
-                    { elem: 'control', attrs: { value: 'login' }},
-                    { elem: 'control', attrs: { value: 'password' }}
-                ]
-            }).val();
+            var value = getControl(['login', 'password']).val();
 
             assert.deepEqual(value, ['login', 'password']);
         });
 
         it('Установить несколько значений нескольких контролов', function() {
-            var block = BEM.blocks['i-control'].create({
-                block: 'i-control',
-                content: [
-                    { elem: 'control' },
-                    { elem: 'control' },
-                    { elem: 'control' }
-                ]
-            }).val(['login', 'password']);
+            var block = getControl(['', '', '']).val(['login', 'password']);
 
-            assert.equal($(block.elem('control')[0]).attr('value'), 'login');
-            assert.equal($(block.elem('control')[1]).attr('value'), 'password');
-            assert.equal($(block.elem('control')[2]).attr('value'), '');
+            assert.equal($(block.elem('control')[0]).val(), 'login');
+            assert.equal($(block.elem('control')[1]).val(), 'password');
+            assert.equal($(block.elem('control')[2]).val(), '');
         });
 
         it('Установить значение нескольких контролов', function() {
-            var block = BEM.blocks['i-control'].create({
-                block: 'i-control',
-                content: [
-                    { elem: 'control' },
-                    { elem: 'control' }
-                ]
-            }).val('data');
+            var block = getControl(['', '']).val('data');
 
             assert.isTrue(block instanceof BEM.DOM);
-            assert.equal($(block.elem('control')[0]).attr('value'), 'data');
-            assert.equal($(block.elem('control')[1]).attr('value'), 'data');
+            assert.equal($(block.elem('control')[0]).val(), 'data');
+            assert.equal($(block.elem('control')[1]).val(), 'data');
         });
 
     });

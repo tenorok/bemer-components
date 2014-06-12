@@ -80,16 +80,16 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-component' }, /** @lends i-cont
     },
 
     /**
-     * Получить/установить атрибут значения настоящего контрола
-     * или списка контролов.
+     * Получить/установить значение настоящему контролу
+     * или списку контролов.
      *
      * При вызове без аргумента возвращается значение контрола
      * или список значений, если контролов несколько.
      *
-     * При вызове с аргументом устанавливается указанное значение
-     * атрибуту `value` для всех переданных контролов.
+     * При вызове с аргументом устанавливается указанное
+     * значение для всех контролов.
      *
-     * При вызове с аргументом в виде массива атрибут `value` устанавливается
+     * При вызове с аргументом в виде массива значение устанавливается
      * последовательно для каждого контрола.
      *
      * @param {*|*[]} [value] Значение или несколько значений контролов
@@ -102,7 +102,7 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-component' }, /** @lends i-cont
         if(value) {
             var prevVal = this.val();
             this.__self.each(control, function() {
-                this.attr('value', Array.isArray(value) ? value.shift() || '' : value);
+                this.val(Array.isArray(value) ? value.shift() || '' : value);
             });
 
             if(!_.isEqual(prevVal, this.val())) {
@@ -113,7 +113,7 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-component' }, /** @lends i-cont
         }
 
         return this.__self.each(control, function() {
-            return this.attr('value');
+            return this.val();
         });
     }
 
