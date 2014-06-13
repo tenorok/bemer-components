@@ -4,7 +4,11 @@ bemer.match('textarea', {
 
     content: function() {
         return [
-            { elem: 'control', placeholder: this.bemjson.placeholder }
+            {
+                elem: 'control',
+                placeholder: this.bemjson.placeholder,
+                content: this.bemjson.content
+            }
         ];
     }
 

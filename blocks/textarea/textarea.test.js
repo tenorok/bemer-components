@@ -24,6 +24,12 @@ describe('textarea.', function() {
                 );
             });
 
+            it('Содержимое', function() {
+                assert.equal($(bemer({ block: 'textarea', content: 'paragraph' }))
+                    .children('.textarea__control').val(), 'paragraph'
+                );
+            });
+
         });
 
     });
