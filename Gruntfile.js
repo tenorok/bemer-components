@@ -1,19 +1,33 @@
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
-    var Test = require('./grunt/Test'),
-        test = new Test(grunt.option('block'));
+    var block = grunt.option('block');
 
     grunt.initConfig({
         clean: {
             test: ['!test/.gitkeep', 'test/*']
         },
-        mochaTest: {
-            main: { src: ['test/*'] },
-            options: { reporter: 'spec' }
+        bemaker: {
+            main: {
+                directories: ['blocks'],
+                outname: 'components',
+                outdir: 'test',
+                blocks: block && [block]
+            }
         },
-        mocha_phantomjs: {
-            all: ['test/index.html']
+        concat: {
+            test: {
+                src: [
+                    'test/components.js',
+                    'test/components.bemer.js',
+                    (block ? 'blocks/' + block : 'test') + '/' + (block || 'components') + '.test.js'
+                ],
+                dest: 'test/components.all.js'
+            },
+            release: {
+                src: ['test/components.js', 'test/components.bemer.js'],
+                dest: 'components.js'
+            }
         },
         karma: {
             test: {
@@ -24,7 +38,7 @@ module.exports = function(grunt) {
                         'bower_components/lodash/dist/lodash.js',
                         'bower_components/i-bem/i-bem.js',
                         'bower_components/bemer/bemer.js',
-                        'test/test.js'
+                        'test/components.all.js'
                     ]
                 },
                 runnerPort: 9999,
@@ -37,9 +51,6 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('test', function() {
-        test.build();
-        grunt.task.run('karma');
-    });
+    grunt.registerTask('test', ['clean:test', 'bemaker', 'concat:test', 'karma']);
 
 };
