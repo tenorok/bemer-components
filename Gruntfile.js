@@ -1,19 +1,35 @@
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
-    var Test = require('./grunt/Test'),
-        test = new Test(grunt.option('block'));
+    var block = grunt.option('block'),
+        Release = require('./grunt/Release'),
+        release = new Release(grunt.option('ver'));
 
     grunt.initConfig({
         clean: {
             test: ['!test/.gitkeep', 'test/*']
         },
-        mochaTest: {
-            main: { src: ['test/*'] },
-            options: { reporter: 'spec' }
+        bemaker: {
+            main: {
+                directories: ['blocks'],
+                outname: 'components',
+                outdir: 'test',
+                blocks: block && [block]
+            }
         },
-        mocha_phantomjs: {
-            all: ['test/index.html']
+        concat: {
+            test: {
+                src: [
+                    'test/components.js',
+                    'test/components.bemer.js',
+                    (block ? 'blocks/' + block : 'test') + '/' + (block || 'components') + '.test.js'
+                ],
+                dest: 'test/components.all.js'
+            },
+            release: {
+                src: ['test/components.js', 'test/components.bemer.js'],
+                dest: 'components.js'
+            }
         },
         karma: {
             test: {
@@ -24,7 +40,7 @@ module.exports = function(grunt) {
                         'bower_components/lodash/dist/lodash.js',
                         'bower_components/i-bem/i-bem.js',
                         'bower_components/bemer/bemer.js',
-                        'test/test.js'
+                        'test/components.all.js'
                     ]
                 },
                 runnerPort: 9999,
@@ -34,12 +50,53 @@ module.exports = function(grunt) {
                 frameworks: ['mocha', 'chai'],
                 reporters: ['mocha']
             }
+        },
+        uglify: {
+            release: {
+                options: {
+                    preserveComments: 'some'
+                },
+                files: { 'components.min.js': 'components.js' }
+            }
+        },
+        shell: {
+            prerelease: release.getShellPreRelease(),
+            release:  {
+                command: function() {
+                    return grunt.config('isReleaseOk')
+                        ? release.getShellRelease()
+                        : '';
+                }
+            }
+        },
+        prompt: {
+            release: {
+                options: {
+                    questions: [
+                        {
+                            config: 'isReleaseOk',
+                            type: 'confirm',
+                            default: false,
+                            message: 'Please check is everything alright'
+                        }
+                    ]
+                }
+            }
         }
     });
 
-    grunt.registerTask('test', function() {
-        test.build();
-        grunt.task.run('karma');
+    grunt.registerTask('test', ['clean:test', 'bemaker', 'concat:test', 'karma']);
+
+    grunt.registerTask('release', function() {
+        release.changeJsonFilesVersion();
+
+        grunt.task.run('test', 'clean:test');
+        grunt.task.run('bemaker', 'concat:release', 'uglify:release');
+
+        grunt.task.run('shell:prerelease');
+
+        grunt.task.run('prompt:release');
+        grunt.task.run('shell:release');
     });
 
 };
