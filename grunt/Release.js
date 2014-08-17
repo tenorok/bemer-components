@@ -6,7 +6,6 @@ function Release(version) {
 
     this.jsonFiles = ['bower.json'];
 
-    this.releaseDir = 'release/';
     this.jsFile = 'components.js';
     this.jsMinFile = 'components.min.js';
 
@@ -20,8 +19,6 @@ Release.prototype = {
         return {
             command: [
                 'git checkout dev',
-                'mv ' + path.join(this.releaseDir, this.jsFile) + ' ' + this.jsFile,
-                'mv ' + path.join(this.releaseDir, this.jsMinFile) + ' ' + this.jsMinFile,
                 'git add ' + this.jsonFiles.join(' '),
                 'git commit -m "' + this.releaseTag + '" -n',
                 'git checkout -b ' + this.releaseBranch,

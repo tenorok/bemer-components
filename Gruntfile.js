@@ -1,7 +1,9 @@
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
-    var block = grunt.option('block');
+    var block = grunt.option('block'),
+        Release = require('./grunt/Release'),
+        release = new Release(grunt.option('ver'));
 
     grunt.initConfig({
         clean: {
@@ -48,9 +50,53 @@ module.exports = function(grunt) {
                 frameworks: ['mocha', 'chai'],
                 reporters: ['mocha']
             }
+        },
+        uglify: {
+            release: {
+                options: {
+                    preserveComments: 'some'
+                },
+                files: { 'components.min.js': 'components.js' }
+            }
+        },
+        shell: {
+            prerelease: release.getShellPreRelease(),
+            release:  {
+                command: function() {
+                    return grunt.config('isReleaseOk')
+                        ? release.getShellRelease()
+                        : '';
+                }
+            }
+        },
+        prompt: {
+            release: {
+                options: {
+                    questions: [
+                        {
+                            config: 'isReleaseOk',
+                            type: 'confirm',
+                            default: false,
+                            message: 'Please check is everything alright'
+                        }
+                    ]
+                }
+            }
         }
     });
 
     grunt.registerTask('test', ['clean:test', 'bemaker', 'concat:test', 'karma']);
+
+    grunt.registerTask('release', function() {
+        release.changeJsonFilesVersion();
+
+        grunt.task.run('test', 'clean:test');
+        grunt.task.run('bemaker', 'concat:release', 'uglify:release');
+
+        grunt.task.run('shell:prerelease');
+
+        grunt.task.run('prompt:release');
+        grunt.task.run('shell:release');
+    });
 
 };
