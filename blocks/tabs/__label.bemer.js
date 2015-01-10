@@ -8,7 +8,8 @@ bemer.match('tabs__label', {
                 elem: 'control',
                 attrs: {
                     name: this.bemjson.name,
-                    value: this.bemjson.value
+                    value: this.bemjson.value,
+                    checked: this.bemjson.checked
                 }
             },
             {

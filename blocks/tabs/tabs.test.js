@@ -12,7 +12,7 @@ describe('tabs.', function() {
 
         describe('__item.', function() {
 
-            var item = $(bemer({
+            var items = $(bemer({
                 block: 'tabs',
                 name: 'colors',
                 items: [
@@ -22,23 +22,32 @@ describe('tabs.', function() {
                     },
                     {
                         value: 'blue',
-                        content: 'синий'
+                        content: 'синий',
+                        checked: true
                     }
                 ]
             })).children('.tabs__item');
 
             it('Тег', function() {
-                assert.equal(item[0].tagName, 'LI');
+                assert.equal(items[0].tagName, 'LI');
+            });
+
+            describe('_checked', function() {
+
+                it('Наличие модификатора', function() {
+                    assert.isTrue(items.eq(1).hasClass('tabs__item_checked'));
+                });
+
             });
 
             describe('__label.', function() {
 
                 it('Тег', function() {
-                    assert.equal(item.children('.tabs__label')[0].tagName, 'LABEL');
+                    assert.equal(items.children('.tabs__label')[0].tagName, 'LABEL');
                 });
 
                 describe('__control.', function() {
-                    var control = item.children('.tabs__label').children('.tabs__control');
+                    var control = items.children('.tabs__label').children('.tabs__control');
 
                     it('Тег', function() {
                         assert.equal(control[0].tagName, 'INPUT');
@@ -57,10 +66,14 @@ describe('tabs.', function() {
                         assert.equal(control.eq(1).attr('value'), 'blue');
                     });
 
+                    it('Атрибут checked', function() {
+                        assert.isTrue(control.eq(1).prop('checked'));
+                    });
+
                 });
 
                 describe('__text.', function() {
-                    var text = item.children('.tabs__label').children('.tabs__text');
+                    var text = items.children('.tabs__label').children('.tabs__text');
 
                     it('Тег', function() {
                         assert.equal(text[0].tagName, 'SPAN');

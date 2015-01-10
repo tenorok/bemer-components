@@ -7,6 +7,7 @@ bemer.match('tabs__item', {
             elem: 'label',
             name: this.bemjson.name,
             value: this.bemjson.value,
+            checked: this.bemjson.elemMods.checked,
             content: text
         };
     }
