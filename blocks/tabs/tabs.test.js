@@ -162,6 +162,31 @@ describe('tabs.', function() {
 
         });
 
+        describe('Событие change.', function() {
+
+            it('При установке несуществующего значения событие не должно возникать', function(done) {
+                tabs.on('change', function() {
+                    throw new Error('Event change should not be triggered.');
+                });
+
+                tabs.val('foo');
+                setTimeout(done, 10);
+            });
+
+            it('Инициирование события change методом val', function(done) {
+                tabs.on('change', function(e, data) {
+                    assert.deepEqual(data, {
+                        value: 'square',
+                        item: tabs.elem('item').eq(1)
+                    });
+                    done();
+                });
+
+                tabs.val('square');
+            });
+
+        });
+
     });
 
 });

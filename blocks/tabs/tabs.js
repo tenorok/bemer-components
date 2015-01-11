@@ -6,6 +6,19 @@
 BEM.DOM.decl({ block: 'tabs', baseBlock: 'i-control' }, /** @lends tabs.prototype */ {
 
     /**
+     * Событие изменения значения табов при выделении другого таба.
+     *
+     * @event tabs#change
+     * @param {string|number|boolean} value Значение выделяемой радиокнопки
+     * @param {jQuery} item Выделенный элемент `item`
+     */
+
+    /**
+     * На элементах `item` возможен булев модификатор `checked`,
+     * символизирующий текущий выделенный таб.
+     */
+
+    /**
      * Получить/установить значение табов.
      *
      * При получении возвращает значение текущей
@@ -35,6 +48,11 @@ BEM.DOM.decl({ block: 'tabs', baseBlock: 'i-control' }, /** @lends tabs.prototyp
             item.addClass('tabs__item_checked');
 
             this.getControl().filter('[value="' + value + '"]').prop('checked', true);
+
+            this.trigger('change', {
+                value: value,
+                item: item
+            });
         }
 
         return this;
