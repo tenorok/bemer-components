@@ -29,7 +29,8 @@
         "karma-chai": "~0.1.0",
         "karma-mocha": "~0.1.3",
         "karma-mocha-reporter": "~0.2.5",
-        "karma-phantomjs-launcher": "~0.1.4"
+        "karma-phantomjs-launcher": "~0.1.4",
+        "simulant": "^0.1.3"
     },
     "scripts": {
         "deps": "npm install && bower install"

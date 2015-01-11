@@ -135,6 +135,11 @@ describe('tabs.', function() {
             })).bem('tabs');
         });
 
+        afterEach(function() {
+            BEM.DOM.destruct(tabs.domElem);
+            BEM.DOM.destruct(precheckedTabs.domElem);
+        });
+
         describe('Метод val.', function() {
 
             it('Получить значение табов', function() {
@@ -199,6 +204,22 @@ describe('tabs.', function() {
                 });
 
                 tabs.val('square');
+            });
+
+            it('Инициирование события change кликом мыши', function(done) {
+                tabs.on('change', function(e, data) {
+                    var item = tabs.elem('item').eq(0);
+
+                    assert.deepEqual(data, {
+                        value: 'circle',
+                        item: item
+                    });
+                    assert.equal(tabs.val(), 'circle');
+                    assert.isTrue(item.hasClass('tabs__item_checked'));
+                    done();
+                });
+
+                simulant.fire(tabs.elem('label').eq(0)[0], 'click');
             });
 
         });

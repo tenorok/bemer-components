@@ -74,4 +74,13 @@ BEM.DOM.decl({ block: 'tabs', baseBlock: 'i-control' }, /** @lends tabs.prototyp
         return this;
     }
 
+}, /** @lends tabs */ {
+
+    live: function() {
+        this
+            .liveBindTo('control', 'change', function(e) {
+                this.val(e.target.value);
+            });
+    }
+
 });
