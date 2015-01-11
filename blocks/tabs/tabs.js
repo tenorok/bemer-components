@@ -1,0 +1,43 @@
+/**
+ * @class tabs
+ * @extends i-control
+ * @bemaker i-control
+ */
+BEM.DOM.decl({ block: 'tabs', baseBlock: 'i-control' }, /** @lends tabs.prototype */ {
+
+    /**
+     * Получить/установить значение табов.
+     *
+     * При получении возвращает значение текущей
+     * радиокнопки в состоянии `checked`.
+     *
+     * При установке переводит состояние `checked` на радиокнопку
+     * с указанным значением в атрибуте `value`.
+     *
+     * @param {string|number|boolean} [value] Значение выделяемой радиокнопки
+     * @returns {string|number|BEM.DOM}
+     */
+    val: function(value) {
+        if(!arguments.length) {
+            return this.getControl().filter(':checked').val();
+        }
+
+        // Таб к выделению.
+        var item = this.elem('item').filter(function(index, item) {
+            return this.elemParams($(item)).value === value;
+        }.bind(this));
+
+        if(item.length) {
+            // TODO: Когда решится задача https://github.com/bem/bem-bl/issues/325,
+            // TODO: нужно будет заменить эти строки на
+            // TODO: `.delMod(this.elem('item', 'checked', true), 'checked').setMod(item, 'checked', true);`
+            this.elem('item').removeClass('tabs__item_checked');
+            item.addClass('tabs__item_checked');
+
+            this.getControl().filter('[value="' + value + '"]').prop('checked', true);
+        }
+
+        return this;
+    }
+
+});

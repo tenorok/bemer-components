@@ -111,4 +111,57 @@ describe('tabs.', function() {
 
     });
 
+    describe('Методы и события.', function() {
+        var tabs,
+            precheckedTabs;
+
+        beforeEach(function() {
+            tabs = BEM.DOM.append(BEM.DOM.scope, bemer({
+                block: 'tabs',
+                name: 'shapes',
+                items: [
+                    { value: 'circle', content: 'круг' },
+                    { value: 'square', content: 'квадрат' }
+                ]
+            })).bem('tabs');
+
+            precheckedTabs = BEM.DOM.append(BEM.DOM.scope, bemer({
+                block: 'tabs',
+                name: 'shapes',
+                items: [
+                    { value: 'circle', content: 'круг' },
+                    { value: 'square', content: 'квадрат', checked: true }
+                ]
+            })).bem('tabs');
+        });
+
+        describe('Метод val.', function() {
+
+            it('Получить значение табов', function() {
+                assert.isUndefined(tabs.val());
+                assert.equal(precheckedTabs.val(), 'square');
+            });
+
+            it('Установить несуществующее значение', function() {
+                assert.isUndefined(tabs.val('foo').val());
+                assert.isFalse(tabs.elem('item').eq(0).hasClass('tabs__item_checked'));
+                assert.isFalse(tabs.elem('item').eq(1).hasClass('tabs__item_checked'));
+            });
+
+            it('Установить значение табам', function() {
+                assert.equal(tabs.val('circle').val(), 'circle');
+                assert.isTrue(tabs.elem('item').eq(0).hasClass('tabs__item_checked'));
+                assert.isFalse(tabs.elem('item').eq(1).hasClass('tabs__item_checked'));
+            });
+
+            it('Изменить значение предустановленных табов', function() {
+                assert.equal(precheckedTabs.val('circle').val(), 'circle');
+                assert.isTrue(precheckedTabs.elem('item').eq(0).hasClass('tabs__item_checked'));
+                assert.isFalse(precheckedTabs.elem('item').eq(1).hasClass('tabs__item_checked'));
+            });
+
+        });
+
+    });
+
 });
