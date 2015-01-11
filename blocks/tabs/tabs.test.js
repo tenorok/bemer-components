@@ -16,15 +16,8 @@ describe('tabs.', function() {
                 block: 'tabs',
                 name: 'colors',
                 items: [
-                    {
-                        value: 'red',
-                        content: 'красный'
-                    },
-                    {
-                        value: 'blue',
-                        content: 'синий',
-                        checked: true
-                    }
+                    { value: 'red', content: 'красный' },
+                    { value: 'blue', content: 'синий', checked: true }
                 ]
             })).children('.tabs__item');
 
@@ -67,7 +60,33 @@ describe('tabs.', function() {
                     });
 
                     it('Атрибут checked', function() {
+                        assert.isUndefined(control.eq(0).attr('checked'));
+                        assert.equal(control.eq(1).attr('checked'), 'checked');
+
+                        assert.isFalse(control.eq(0).prop('checked'));
                         assert.isTrue(control.eq(1).prop('checked'));
+                    });
+
+                    describe('Без полей name и value.', function() {
+                        var control = $(bemer({
+                            block: 'tabs',
+                            items: [
+                                { content: 'красный' },
+                                { content: 'синий' }
+                            ]
+                        })).children('.tabs__item').children('.tabs__label').children('.tabs__control');
+
+                        it('Атрибут name должен существовать', function() {
+                            assert.isDefined(control.attr('name'));
+                        });
+
+                        it('Атрибуты name обоих табов должны быть идентичны', function() {
+                            assert.isTrue(control.eq(0).attr('name') === control.eq(1).attr('name'));
+                        });
+
+                        it('Атрибут value должен отсутствовать', function() {
+                            assert.isUndefined(control.attr('value'));
+                        });
                     });
 
                 });
