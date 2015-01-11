@@ -1,4 +1,8 @@
 /**
+ * Табы.
+ *
+ * Одновременно может быть выделен только один таб.
+ *
  * @class tabs
  * @extends i-control
  * @bemaker i-control
@@ -41,8 +45,7 @@ BEM.DOM.decl({ block: 'tabs', baseBlock: 'i-control' }, /** @lends tabs.prototyp
         }.bind(this));
 
         if(item.length) {
-            // TODO: Когда решится задача https://github.com/bem/bem-bl/issues/325,
-            // TODO: нужно будет заменить эти строки на
+            // TODO: Заменить эти строки, когда решится задача https://github.com/bem/bem-bl/issues/325
             // TODO: `.delMod(this.elem('item', 'checked', true), 'checked').setMod(item, 'checked', true);`
             this.elem('item').removeClass('tabs__item_checked');
             item.addClass('tabs__item_checked');
@@ -55,6 +58,19 @@ BEM.DOM.decl({ block: 'tabs', baseBlock: 'i-control' }, /** @lends tabs.prototyp
             });
         }
 
+        return this;
+    },
+
+    /**
+     * Сбросить выделение табов.
+     *
+     * @returns {BEM.DOM}
+     */
+    reset: function() {
+        // TODO: Заменить эту строку, когда решится задача https://github.com/bem/bem-bl/issues/325
+        // TODO: `this.delMod(this.elem('item'), 'checked');`
+        this.elem('item').removeClass('tabs__item_checked');
+        this.getControl().prop('checked', false);
         return this;
     }
 

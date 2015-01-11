@@ -162,6 +162,22 @@ describe('tabs.', function() {
 
         });
 
+        describe('Метод reset.', function() {
+
+            it('Сброс выделенных табов', function() {
+                assert.equal(precheckedTabs.val(), 'square');
+                assert.deepEqual(precheckedTabs.reset(), precheckedTabs);
+                assert.isUndefined(precheckedTabs.val());
+
+                var control = precheckedTabs.elem('control');
+                assert.isUndefined(control.attr('checked'));
+                assert.isFalse(control.prop('checked'));
+
+                assert.isFalse(precheckedTabs.elem('item').hasClass('tabs__item_checked'));
+            });
+
+        });
+
         describe('Событие change.', function() {
 
             it('При установке несуществующего значения событие не должно возникать', function(done) {
