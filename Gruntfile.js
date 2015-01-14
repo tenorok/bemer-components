@@ -35,6 +35,7 @@ module.exports = function(grunt) {
             test: {
                 options: {
                     files: [
+                        'node_modules/simulant/simulant.js',
                         'bower_components/es5-shim/es5-shim.js',
                         'bower_components/jquery/dist/jquery.js',
                         'bower_components/lodash/dist/lodash.js',
