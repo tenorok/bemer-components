@@ -107,7 +107,7 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-component' }, /** @lends i-cont
             });
 
             if(!_.isEqual(prevVal, this.val())) {
-                this.trigger('change', data || {});
+                this.emit('change', data || {});
             }
 
             return this;
@@ -123,7 +123,7 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-component' }, /** @lends i-cont
     live: function() {
         this
             .liveBindTo('control', 'change', function(e, data) {
-                this.trigger(e, data);
+                this.emit(e.type, data);
             });
     }
 
