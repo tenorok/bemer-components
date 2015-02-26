@@ -52,7 +52,7 @@ BEM.DOM.decl({ block: 'tabs', baseBlock: 'i-control' }, /** @lends tabs.prototyp
 
             this.getControl().filter('[value="' + value + '"]').prop('checked', true);
 
-            this.trigger('change', {
+            this.emit('change', {
                 value: value,
                 item: item
             });
