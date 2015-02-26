@@ -33,7 +33,6 @@
     "disallowSpacesInsideArrayBrackets": true,
     "disallowSpacesInsideParentheses": true,
     "requireSpacesInsideObjectBrackets": "allButNested",
-    "disallowQuotedKeysInObjects": "allButReserved",
     "disallowSpaceAfterObjectKeys": true,
     "requireCommaBeforeLineBreak": true,
     "requireOperatorBeforeLineBreak": [
