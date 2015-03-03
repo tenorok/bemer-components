@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         clean: {
-            test: ['!test/.gitkeep', 'test/*']
+            test: ['test/*.js']
         },
         bemaker: {
             main: {
@@ -52,6 +52,20 @@ module.exports = function(grunt) {
                 reporters: ['mocha']
             }
         },
+        mochaTest: {
+            tmp: {
+                options: {
+                    reporter: 'spec',
+                    require: [
+                        './test/helpers/chai-assert.js',
+                        './test/helpers/bemer.js',
+                        './test/components.bemer.js',
+                        './test/helpers/html-differ.js'
+                    ]
+                },
+                src: ['test/components.tmp-test.js']
+            }
+        },
         uglify: {
             release: {
                 options: {
@@ -87,6 +101,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('test', ['clean:test', 'bemaker', 'concat:test', 'karma']);
+    grunt.registerTask('test:tmp', ['clean:test', 'bemaker', 'mochaTest:tmp']);
 
     grunt.registerTask('release', function() {
         release.changeJsonFilesVersion();
