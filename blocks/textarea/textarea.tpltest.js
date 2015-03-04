@@ -1,6 +1,6 @@
 describe('textarea.', function() {
 
-    it('Блок без полей', function() {
+    it('Без атрибутов', function() {
         assert.isTrue(htmlDiffer({ block: 'textarea' },
             '<div class="i-bem textarea" data-bem="{&quot;textarea&quot;:{}}">' +
                 '<textarea class="textarea__control"></textarea>' +

@@ -1,6 +1,6 @@
 describe('link.', function() {
 
-    it('Блок без полей', function() {
+    it('Без атрибутов', function() {
         assert.isTrue(htmlDiffer({ block: 'link' },
             '<a class="link" href="#"></a>'));
     });
