@@ -1,0 +1,1 @@
+global.bemer = require('bemer');
