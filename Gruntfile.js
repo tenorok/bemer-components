@@ -53,7 +53,7 @@ module.exports = function(grunt) {
             }
         },
         mochaTest: {
-            tmp: {
+            tpl: {
                 options: {
                     reporter: 'spec',
                     require: [
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
                         './test/helpers/html-differ.js'
                     ]
                 },
-                src: ['test/components.tmp-test.js']
+                src: ['test/components.tpltest.js']
             }
         },
         uglify: {
@@ -100,8 +100,9 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('test', ['clean:test', 'bemaker', 'concat:test', 'karma']);
-    grunt.registerTask('test:tmp', ['clean:test', 'bemaker', 'mochaTest:tmp']);
+    grunt.registerTask('test:js', ['clean:test', 'bemaker', 'concat:test', 'karma']);
+    grunt.registerTask('test:tpl', ['clean:test', 'bemaker', 'mochaTest:tpl']);
+    grunt.registerTask('test', ['test:js', 'test:tpl']);
 
     grunt.registerTask('release', function() {
         release.changeJsonFilesVersion();

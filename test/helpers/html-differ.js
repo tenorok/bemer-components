@@ -2,6 +2,16 @@ var HtmlDiffer = require('html-differ').HtmlDiffer,
     htmlDifferlogger = require('html-differ/lib/logger'),
     htmlDiffer = new HtmlDiffer('bem');
 
+/**
+ * Сравнить HTML.
+ *
+ * Функция преобразует BEMJSON в HTML с помощью bemer и выводит ошибку,
+ * если полученный результат не проходит проверку htmlDiffer.
+ *
+ * @param {object} bemjson BEMJSON для преобразования в HTML
+ * @param {string} htmlStandard Эталонный HTML
+ * @returns {boolean} Результат проверки htmlDiffer
+ */
 global.htmlDiffer = function(bemjson, htmlStandard) {
     var html = bemer(bemjson),
         diff = htmlDiffer.isEqual(html, htmlStandard);
