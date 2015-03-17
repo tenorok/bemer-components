@@ -9,12 +9,13 @@ bemer.match('document', {
         if(this.bemjson.bodyScript) {
             this.bemjson.bodyScript.forEach(function(srcOrAttrs) {
                 content.push({
+                    block: this.bemjson.block,
                     elem: 'script',
                     attrs: typeof srcOrAttrs === 'string'
                         ? { src: srcOrAttrs }
                         : srcOrAttrs
                 });
-            });
+            }, this);
         }
 
         return [
@@ -32,9 +33,7 @@ bemer.match('document', {
                         script: this.bemjson.script
                     },
                     {
-                        tag: 'body',
-                        elem: 'body', // TODO: Удалить эту строку после исправления бага в шаблонизаторе.
-                        bem: false, // TODO: Удалить эту строку после исправления бага в шаблонизаторе.
+                        block: 'body',
                         content: content
                     }
                 ]

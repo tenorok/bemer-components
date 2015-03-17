@@ -5,7 +5,7 @@ describe('document.', function() {
                 '<!DOCTYPE html>' +
                 '<html>' +
                     '<head></head>' +
-                    '<body></body>' +
+                    '<body class="body i-bem" data-bem="{&quot;body&quot;:{}}"></body>' +
                 '</html>'));
     });
 
@@ -14,7 +14,7 @@ describe('document.', function() {
                 '<!DOCTYPE html>' +
                 '<html>' +
                     '<head></head>' +
-                    '<body>Page content.</body>' +
+                    '<body class="body i-bem" data-bem="{&quot;body&quot;:{}}">Page content.</body>' +
                 '</html>'));
     });
 
@@ -25,7 +25,7 @@ describe('document.', function() {
                     '<head>' +
                         '<title>Hello World!</title>' +
                     '</head>' +
-                    '<body></body>' +
+                    '<body class="body i-bem" data-bem="{&quot;body&quot;:{}}"></body>' +
                 '</html>'));
     });
 
@@ -42,7 +42,7 @@ describe('document.', function() {
                         '<meta charset="utf-8">' +
                         '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">' +
                     '</head>' +
-                    '<body></body>' +
+                    '<body class="body i-bem" data-bem="{&quot;body&quot;:{}}"></body>' +
                 '</html>'));
     });
 
@@ -60,7 +60,7 @@ describe('document.', function() {
                         '<link rel="stylesheet" href="first.css">' +
                         '<link rel="stylesheet" href="second.css">' +
                     '</head>' +
-                    '<body></body>' +
+                    '<body class="body i-bem" data-bem="{&quot;body&quot;:{}}"></body>' +
                 '</html>'));
     });
 
@@ -78,7 +78,7 @@ describe('document.', function() {
                         '<script src="first.js"></script>' +
                         '<script type="text/javascript" src="second.js"></script>' +
                     '</head>' +
-                    '<body></body>' +
+                    '<body class="body i-bem" data-bem="{&quot;body&quot;:{}}"></body>' +
                 '</html>'));
     });
 
@@ -93,7 +93,7 @@ describe('document.', function() {
                 '<!DOCTYPE html>' +
                 '<html>' +
                     '<head></head>' +
-                    '<body>' +
+                    '<body class="body i-bem" data-bem="{&quot;body&quot;:{}}">' +
                         'Paragraph.' +
                         '<script src="first.js"></script>' +
                         '<script type="text/javascript" src="second.js"></script>' +
