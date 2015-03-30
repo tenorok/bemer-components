@@ -7,13 +7,11 @@ bemer.match('document', {
         var content = [].concat(this.bemjson.content);
 
         if(this.bemjson.bodyScript) {
-            this.bemjson.bodyScript.forEach(function(srcOrAttrs) {
+            this.bemjson.bodyScript.forEach(function(stringOrObject) {
                 content.push({
                     block: this.bemjson.block,
                     elem: 'script',
-                    attrs: typeof srcOrAttrs === 'string'
-                        ? { src: srcOrAttrs }
-                        : srcOrAttrs
+                    script: stringOrObject
                 });
             }, this);
         }

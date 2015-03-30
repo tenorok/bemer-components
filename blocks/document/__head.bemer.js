@@ -31,12 +31,10 @@ bemer.match('document__head', {
         }
 
         if(this.bemjson.script) {
-            this.bemjson.script.forEach(function(srcOrAttrs) {
+            this.bemjson.script.forEach(function(stringOrObject) {
                 content.push({
                     elem: 'script',
-                    attrs: typeof srcOrAttrs === 'string'
-                        ? { src: srcOrAttrs }
-                        : srcOrAttrs
+                    script: stringOrObject
                 });
             });
         }

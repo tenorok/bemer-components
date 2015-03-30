@@ -68,8 +68,17 @@ describe('document.', function() {
         assert.isTrue(htmlDiffer({ block: 'document', script: [
                 'first.js',
                 {
-                    type: 'text/javascript',
-                    src: 'second.js'
+                    attrs: {
+                        type: 'text/javascript',
+                        src: 'second.js'
+                    }
+                },
+                { content: 'var i = "inline script";' },
+                {
+                    attrs: {
+                        type: 'text/javascript'
+                    },
+                    content: 'var i = "inline script with type";'
                 }
             ] },
                 '<!DOCTYPE html>' +
@@ -77,6 +86,8 @@ describe('document.', function() {
                     '<head>' +
                         '<script src="first.js"></script>' +
                         '<script type="text/javascript" src="second.js"></script>' +
+                        '<script>var i = "inline script";</script>' +
+                        '<script type="text/javascript">var i = "inline script with type";</script>' +
                     '</head>' +
                     '<body class="body i-bem" data-bem="{&quot;body&quot;:{}}"></body>' +
                 '</html>'));
@@ -86,8 +97,17 @@ describe('document.', function() {
         assert.isTrue(htmlDiffer({ block: 'document', content: ['Paragraph.'], bodyScript: [
                 'first.js',
                 {
-                    type: 'text/javascript',
-                    src: 'second.js'
+                    attrs: {
+                        type: 'text/javascript',
+                        src: 'second.js'
+                    }
+                },
+                { content: 'var i = "inline script";' },
+                {
+                    attrs: {
+                        type: 'text/javascript'
+                    },
+                    content: 'var i = "inline script with type";'
                 }
             ] },
                 '<!DOCTYPE html>' +
@@ -97,6 +117,8 @@ describe('document.', function() {
                         'Paragraph.' +
                         '<script src="first.js"></script>' +
                         '<script type="text/javascript" src="second.js"></script>' +
+                        '<script>var i = "inline script";</script>' +
+                        '<script type="text/javascript">var i = "inline script with type";</script>' +
                     '</body>' +
                 '</html>'));
     });
