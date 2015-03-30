@@ -94,7 +94,11 @@ describe('document.', function() {
     });
 
     it('С атрибутами content и bodyScript', function() {
-        assert.isTrue(htmlDiffer({ block: 'document', content: ['Paragraph.'], bodyScript: [
+        assert.isTrue(htmlDiffer({ block: 'document', content: [
+                'Paragraph.',
+                { block: 'document', elem: 'script', content: 'var s;' },
+                { block: 'document', elem: 'script', attrs: { src: 'zero.js' }}
+            ], bodyScript: [
                 'first.js',
                 {
                     attrs: {
@@ -115,6 +119,8 @@ describe('document.', function() {
                     '<head></head>' +
                     '<body class="body i-bem" data-bem="{&quot;body&quot;:{}}">' +
                         'Paragraph.' +
+                        '<script>var s;</script>' +
+                        '<script src="zero.js"></script>' +
                         '<script src="first.js"></script>' +
                         '<script type="text/javascript" src="second.js"></script>' +
                         '<script>var i = "inline script";</script>' +
