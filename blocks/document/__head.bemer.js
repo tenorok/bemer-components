@@ -30,6 +30,15 @@ bemer.match('document__head', {
             });
         }
 
+        if(this.bemjson.style) {
+            this.bemjson.style.forEach(function(stringOrObject) {
+                content.push({
+                    elem: 'style',
+                    style: stringOrObject
+                });
+            });
+        }
+
         if(this.bemjson.script) {
             this.bemjson.script.forEach(function(stringOrObject) {
                 content.push({
@@ -39,7 +48,7 @@ bemer.match('document__head', {
             });
         }
 
-        return content;
+        return content.concat(this.bemjson.head || []);
     }
 
 });

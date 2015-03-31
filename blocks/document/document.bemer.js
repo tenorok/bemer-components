@@ -28,7 +28,9 @@ bemer.match('document', {
                         title: this.bemjson.title,
                         meta: this.bemjson.meta,
                         link: this.bemjson.link,
-                        script: this.bemjson.script
+                        style: this.bemjson.style,
+                        script: this.bemjson.script,
+                        head: this.bemjson.head
                     },
                     {
                         block: 'body',
