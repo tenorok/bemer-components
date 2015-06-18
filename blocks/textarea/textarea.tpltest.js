@@ -7,6 +7,13 @@ describe('textarea.', function() {
             '</div>'));
     });
 
+    it('Атрибут name', function() {
+        assert.isTrue(htmlDiffer({ block: 'textarea', name: 'details' },
+            '<div class="i-bem textarea" data-bem="{&quot;textarea&quot;:{}}">' +
+                '<textarea class="textarea__control" name="details"></textarea>' +
+            '</div>'));
+    });
+
     it('Атрибут placeholder', function() {
         assert.isTrue(htmlDiffer({ block: 'textarea', placeholder: 'message' },
             '<div class="i-bem textarea" data-bem="{&quot;textarea&quot;:{}}">' +
