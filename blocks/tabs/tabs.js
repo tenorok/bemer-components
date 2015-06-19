@@ -45,10 +45,9 @@ BEM.DOM.decl({ block: 'tabs', baseBlock: 'i-control' }, /** @lends tabs.prototyp
         }.bind(this));
 
         if(item.length) {
-            // TODO: Заменить эти строки, когда решится задача https://github.com/bem/bem-bl/issues/325
-            // TODO: `.delMod(this.elem('item', 'checked', true), 'checked').setMod(item, 'checked', true);`
-            this.elem('item').removeClass('tabs__item_checked');
-            item.addClass('tabs__item_checked');
+            this
+                .delMod(this.elem('item', 'checked', true), 'checked')
+                .setMod(item, 'checked', true);
 
             this.getControl().filter('[value="' + value + '"]').prop('checked', true);
 
@@ -67,9 +66,7 @@ BEM.DOM.decl({ block: 'tabs', baseBlock: 'i-control' }, /** @lends tabs.prototyp
      * @returns {BEM.DOM}
      */
     reset: function() {
-        // TODO: Заменить эту строку, когда решится задача https://github.com/bem/bem-bl/issues/325
-        // TODO: `this.delMod(this.elem('item'), 'checked');`
-        this.elem('item').removeClass('tabs__item_checked');
+        this.delMod(this.elem('item'), 'checked');
         this.getControl().prop('checked', false);
         return this;
     }
