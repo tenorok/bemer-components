@@ -23,8 +23,8 @@ BEM.DOM.decl('i-block', /** @lends i-block.prototype */ {}, /** @lends i-block *
      * @returns {BEM.DOM|jQuery}
      */
     create: function(bemjson) {
-        var bemjson = bemjson || this.getBEMJSON.apply(this, arguments),
-            block = BEM.DOM.init($(bemer(bemjson)));
+        bemjson = bemjson || this.getBEMJSON.apply(this, arguments);
+        var block = BEM.DOM.init($(bemer(bemjson)));
 
         return bemjson.js === false ? block : block.bem(this.getName());
     },

@@ -28,4 +28,11 @@ describe('textarea.', function() {
             '</div>'));
     });
 
+    it('Модификатор disabled', function() {
+        assert.isTrue(htmlDiffer({ block: 'textarea', mods: { disabled: true }},
+            '<div class="i-bem textarea textarea_disabled" data-bem="{&quot;textarea&quot;:{}}">' +
+                '<textarea class="textarea__control textarea_disabled__control" disabled></textarea>' +
+            '</div>'));
+    });
+
 });
