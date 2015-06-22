@@ -120,11 +120,21 @@ BEM.DOM.decl({ block: 'i-control', baseBlock: 'i-component' }, /** @lends i-cont
 
 }, /** @lends i-control */ {
 
+    /**
+     * Обработчик изменения контрола.
+     *
+     * @protected
+     * @param {jQuery.Event} e Событие
+     * @param {*} data Данные события
+     */
+    _onChange: function(e, data) {
+        this.emit(e.type, data);
+    },
+
     live: function() {
+        this.__base.apply(this, arguments);
         this
-            .liveBindTo('control', 'change', function(e, data) {
-                this.emit(e.type, data);
-            });
+            .liveBindTo('control', 'change', this._onChange);
     }
 
 });

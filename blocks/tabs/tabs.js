@@ -74,7 +74,9 @@ BEM.DOM.decl({ block: 'tabs', baseBlock: 'i-control' }, /** @lends tabs.prototyp
 }, /** @lends tabs */ {
 
     live: function() {
+        this.__base.apply(this, arguments);
         this
+            .liveUnbindFrom('control', 'change', this._onChange)
             .liveBindTo('control', 'change', function(e) {
                 this.val(e.target.value);
             });

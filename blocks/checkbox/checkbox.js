@@ -5,6 +5,12 @@
  */
 BEM.DOM.decl({ block: 'checkbox', baseBlock: 'i-control' }, /** @lends checkbox.prototype */ {
 
+    /**
+     * Булев модификатор `checked`.
+     *
+     * Устанавливает одноимённый атрибут контролу блока.
+     */
+
     beforeSetMod: {
 
         checked: {
@@ -18,7 +24,8 @@ BEM.DOM.decl({ block: 'checkbox', baseBlock: 'i-control' }, /** @lends checkbox.
     onSetMod: {
 
         checked: {
-            '*': function() {
+            '*': function(name, val) {
+                this.elem('control').prop(name, val);
                 this.emit('change');
             }
         }
@@ -51,10 +58,11 @@ BEM.DOM.decl({ block: 'checkbox', baseBlock: 'i-control' }, /** @lends checkbox.
 }, /** @lends checkbox */ {
 
     live: function() {
+        this.__base.apply(this, arguments);
         this
-            .liveBindTo('control', 'change', function(e, data) {
+            .liveUnbindFrom('control', 'change', this._onChange)
+            .liveBindTo('control', 'change', function(e) {
                 e.target.checked ? this.setMod('checked') : this.delMod('checked');
-                this.emit(e.type, data);
             });
     }
 

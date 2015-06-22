@@ -39,24 +39,25 @@ describe('checkbox.', function() {
 
     describe('Событие change.', function() {
 
-        it('Возникновение события change на выключенном контроле', function(done) {
+        it('Установка модификатора checked', function(done) {
             checkbox.on('change', function() {
-                assert.equal(this.val(), '');
+                assert.isTrue(this.elem('control').is(':checked'));
                 assert.isTrue(this.getMod('checked'));
                 done();
             });
             checkbox.setMod('checked');
         });
 
-        it('Возникновение события change на включенном контроле', function(done) {
+        it('Удаление модификатора checked', function(done) {
             precheckedCheckbox.on('change', function() {
+                assert.isFalse(this.elem('control').is(':checked'));
                 assert.isFalse(this.hasMod('checked'));
                 done();
             });
             precheckedCheckbox.delMod('checked');
         });
 
-        it('Установка модификатора checked при включении контрола', function(done) {
+        it('Клик по выключенному контролу', function(done) {
             checkbox.on('change', function() {
                 assert.isTrue(this.getMod('checked'));
                 done();
@@ -64,7 +65,7 @@ describe('checkbox.', function() {
             simulant.fire(checkbox.elem('control')[0], 'click');
         });
 
-        it('Снятие модификатора checked при выключении контрола', function(done) {
+        it('Клик по включенному контролу', function(done) {
             precheckedCheckbox.on('change', function() {
                 assert.isFalse(this.hasMod('checked'));
                 done();
