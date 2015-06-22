@@ -53,6 +53,7 @@ BEM.DOM.decl({ block: 'checkbox', baseBlock: 'i-control' }, /** @lends checkbox.
     live: function() {
         this
             .liveBindTo('control', 'change', function(e, data) {
+                e.target.checked ? this.setMod('checked') : this.delMod('checked');
                 this.emit(e.type, data);
             });
     }
